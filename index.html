@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlajLab Care — Premium Medicine & Healthcare</title>
+<meta name="description" content="AlajLab Care is a premium online pharmacy offering licensed medicines, wellness products, prescription uploads and fast delivery.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+/* ============ DESIGN TOKENS ============ */
+:root{
+  --teal:#0E9F8E;
+  --teal-dark:#0A7C70;
+  --teal-soft:#E6F7F4;
+  --mint:#9AE6D4;
+  --navy:#0B2545;
+  --navy-2:#132F52;
+  --white:#FFFFFF;
+  --bg:#F6FAFB;
+  --surface:#FFFFFF;
+  --surface-2:#F1F6F7;
+  --text:#10233A;
+  --muted:#5C6F80;
+  --border:#DCE7EA;
+  --danger:#D64545;
+  --warning:#E3A008;
+  --success:#178A5C;
+  --radius:18px;
+  --radius-sm:12px;
+  --shadow-sm:0 4px 14px rgba(11,37,69,.07);
+  --shadow:0 14px 40px rgba(11,37,69,.10);
+  --shadow-lg:0 24px 70px rgba(11,37,69,.16);
+  --glass:rgba(255,255,255,.72);
+  --glass-border:rgba(255,255,255,.45);
+  --header-h:76px;
+  --transition:.28s cubic-bezier(.4,.14,.3,1);
+}
+[data-theme="dark"]{
+  --bg:#071527;
+  --surface:#0D2038;
+  --surface-2:#102944;
+  --text:#EAF3F6;
+  --muted:#9DB0C0;
+  --border:#1D3A58;
+  --teal-soft:#0E2F3B;
+  --shadow-sm:0 4px 14px rgba(0,0,0,.28);
+  --shadow:0 14px 40px rgba(0,0,0,.34);
+  --shadow-lg:0 24px 70px rgba(0,0,0,.45);
+  --glass:rgba(13,32,56,.78);
+  --glass-border:rgba(255,255,255,.09);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Inter","Cairo",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+  transition:background var(--transition),color var(--transition);
+}
+html[dir="rtl"] body{font-family:"Cairo","Inter",system-ui,sans-serif}
+h1,h2,h3,h4,.font-display{font-family:"Poppins","Cairo",sans-serif;line-height:1.2;margin:0}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3,html[dir="rtl"] h4{font-family:"Cairo","Poppins",sans-serif}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font:inherit;color:inherit}
+ul{margin:0;padding:0;list-style:none}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.container{width:min(1200px,92%);margin-inline:auto}
+.section{padding:clamp(64px,8vw,110px) 0}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--teal-soft);color:var(--teal-dark);
+  padding:8px 14px;border-radius:999px;font-size:.78rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;
+}
+.section-head{max-width:680px;margin-bottom:42px}
+.section-head h2{font-size:clamp(1.85rem,4vw,2.7rem);margin-bottom:14px}
+.section-head p{color:var(--muted);font-size:1.03rem}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:50px;padding:13px 24px;border-radius:999px;font-weight:700;
+  transition:transform var(--transition),box-shadow var(--transition),background var(--transition),color var(--transition);
+  white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;box-shadow:0 10px 26px rgba(14,159,142,.32)}
+.btn-primary:hover{box-shadow:0 16px 34px rgba(14,159,142,.42)}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-ghost{border:1.5px solid var(--border);background:var(--surface);color:var(--text)}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal-dark)}
+.btn-sm{min-height:40px;padding:8px 16px;font-size:.88rem}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{position:fixed;top:-100px;left:16px;z-index:1000;background:var(--navy);color:#fff;padding:12px 18px;border-radius:0 0 12px 12px;transition:top .2s}
+.skip-link:focus{top:0}
+
+/* ============ NAVBAR ============ */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:var(--glass);backdrop-filter:blur(18px) saturate(1.4);
+  border-bottom:1px solid var(--glass-border);
+}
+.header-inner{display:flex;align-items:center;gap:18px;min-height:var(--header-h)}
+.logo{display:flex;align-items:center;gap:11px;font-family:"Poppins","Cairo",sans-serif;font-weight:800;font-size:1.16rem;flex-shrink:0}
+.logo-mark{
+  width:42px;height:42px;border-radius:13px;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(135deg,var(--teal),var(--navy));box-shadow:0 8px 20px rgba(14,159,142,.3);
+}
+.logo span small{display:block;font-size:.62rem;font-weight:600;color:var(--muted);letter-spacing:.16em;text-transform:uppercase}
+.nav-links{display:flex;gap:6px;margin-inline:auto}
+.nav-links a{
+  padding:9px 14px;border-radius:999px;font-weight:600;font-size:.93rem;color:var(--muted);
+  transition:color var(--transition),background var(--transition);
+}
+.nav-links a:hover,.nav-links a.active{color:var(--teal-dark);background:var(--teal-soft)}
+.header-tools{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.search{
+  position:relative;display:flex;align-items:center;width:250px;
+  background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:0 16px;transition:border var(--transition),box-shadow var(--transition);
+}
+.search:focus-within{border-color:var(--teal);box-shadow:0 0 0 4px rgba(14,159,142,.14)}
+.search i{color:var(--muted);font-size:.9rem}
+.search input{border:0;background:transparent;width:100%;padding:11px 10px;outline:none}
+.icon-btn{
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;position:relative;
+  background:var(--surface-2);border:1px solid var(--border);transition:all var(--transition);
+}
+.icon-btn:hover{border-color:var(--teal);color:var(--teal-dark);transform:translateY(-2px)}
+.cart-count{
+  position:absolute;top:-4px;inset-inline-end:-4px;min-width:21px;height:21px;border-radius:999px;
+  background:var(--danger);color:#fff;font-size:.68rem;font-weight:800;display:grid;place-items:center;
+  padding:0 5px;border:2px solid var(--surface);transform:scale(0);transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.cart-count.show{transform:scale(1)}
+.lang-toggle{width:auto;padding:0 14px;gap:7px;font-weight:700;font-size:.82rem}
+.burger{display:none}
+.mobile-nav{display:none}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:clamp(50px,7vw,90px) 0 clamp(70px,8vw,110px);overflow:hidden}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;pointer-events:none}
+.hero::before{width:520px;height:520px;background:var(--mint);top:-180px;inset-inline-end:-140px}
+.hero::after{width:420px;height:420px;background:rgba(14,159,142,.35);bottom:-190px;inset-inline-start:-130px}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(2.3rem,5.4vw,4rem);font-weight:800;margin:18px 0 20px}
+.hero h1 em{font-style:normal;color:var(--teal);position:relative}
+.hero h1 em::after{content:"";position:absolute;inset-inline:0;bottom:4px;height:10px;background:var(--mint);opacity:.45;border-radius:999px;z-index:-1}
+.hero p{color:var(--muted);font-size:1.08rem;max-width:520px;margin-bottom:30px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:38px}
+.trust-badges{display:flex;gap:12px;flex-wrap:wrap}
+.trust-badge{
+  display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);
+  padding:11px 16px;border-radius:14px;box-shadow:var(--shadow-sm);font-size:.86rem;font-weight:600;
+}
+.trust-badge i{color:var(--teal)}
+.hero-visual{position:relative;min-height:430px}
+.hero-product{
+  position:absolute;inset:0;display:grid;place-items:center;
+}
+.hero-product img{
+  width:min(430px,88%);aspect-ratio:1;object-fit:cover;border-radius:32px;
+  box-shadow:var(--shadow-lg);animation:float 6s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+.float-card{
+  position:absolute;background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--glass-border);
+  padding:14px 18px;border-radius:16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;
+  animation:float 7s ease-in-out infinite;
+}
+.float-card .fc-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:#fff;background:var(--teal)}
+.float-card strong{display:block;font-size:.9rem}
+.float-card small{color:var(--muted);font-size:.75rem}
+.fc-1{top:8%;inset-inline-start:0}
+.fc-2{bottom:10%;inset-inline-end:0;animation-delay:-2.5s}
+.fc-3{bottom:24%;inset-inline-start:-4%;animation-delay:-4s}
+.hero-stats{display:flex;gap:34px;flex-wrap:wrap;margin-top:34px}
+.hero-stats strong{font-family:"Poppins","Cairo",sans-serif;font-size:1.5rem;display:block;color:var(--teal-dark)}
+.hero-stats span{color:var(--muted);font-size:.85rem}
+
+/* ============ CATEGORIES ============ */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px}
+.cat-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px 18px;text-align:center;box-shadow:var(--shadow-sm);transition:all var(--transition);
+}
+.cat-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--teal)}
+.cat-icon{
+  width:60px;height:60px;margin:0 auto 15px;border-radius:18px;display:grid;place-items:center;
+  font-size:1.4rem;color:var(--teal-dark);background:var(--teal-soft);transition:all var(--transition);
+}
+.cat-card:hover .cat-icon{background:var(--teal);color:#fff;transform:rotate(-6deg) scale(1.06)}
+.cat-card h3{font-size:1rem;margin-bottom:5px}
+.cat-card span{font-size:.8rem;color:var(--muted)}
+
+/* ============ PRODUCTS ============ */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}
+.filter-tab{
+  padding:10px 20px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);
+  font-weight:600;font-size:.9rem;color:var(--muted);transition:all var(--transition);
+}
+.filter-tab:hover{border-color:var(--teal);color:var(--teal-dark)}
+.filter-tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.product-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:all var(--transition);
+}
+.product-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+.product-media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--surface-2)}
+.product-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.product-card:hover .product-media img{transform:scale(1.07)}
+.badge{
+  position:absolute;top:12px;inset-inline-start:12px;padding:5px 11px;border-radius:999px;
+  font-size:.7rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+}
+.badge-rx{background:#FFF1E0;color:#B45309}
+.badge-sale{background:var(--teal);color:#fff}
+.product-body{padding:18px;display:flex;flex-direction:column;gap:9px;flex:1}
+.product-cat{font-size:.74rem;font-weight:700;color:var(--teal-dark);text-transform:uppercase;letter-spacing:.07em}
+.product-body h3{font-size:1.02rem;font-weight:600}
+.rating{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted)}
+.stars{color:#F5A623;letter-spacing:1px}
+.product-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px}
+.price{font-family:"Poppins","Cairo",sans-serif;font-weight:700;font-size:1.12rem;color:var(--navy)}
+.price small{font-size:.72rem;font-weight:600;color:var(--muted)}
+.add-btn{
+  width:44px;height:44px;border-radius:14px;background:var(--teal-soft);color:var(--teal-dark);
+  display:grid;place-items:center;font-size:1rem;transition:all var(--transition);
+}
+.add-btn:hover{background:var(--teal);color:#fff;transform:scale(1.08)}
+.empty-state{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)}
+.empty-state i{font-size:2.4rem;color:var(--teal);margin-bottom:14px;display:block}
+
+/* ============ PRESCRIPTION ============ */
+.rx-section{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;position:relative;overflow:hidden}
+.rx-section::before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(14,159,142,.24);filter:blur(90px);top:-160px;inset-inline-end:-120px}
+.rx-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+.rx-section .eyebrow{background:rgba(255,255,255,.12);color:var(--mint)}
+.rx-section h2{color:#fff}
+.rx-section p{color:#B9C9D8}
+.rx-list{margin-top:26px;display:grid;gap:14px}
+.rx-list li{display:flex;gap:13px;align-items:flex-start;font-size:.95rem;color:#D7E3EC}
+.rx-list i{color:var(--mint);margin-top:4px}
+.dropzone{
+  border:2px dashed rgba(255,255,255,.35);border-radius:24px;padding:52px 30px;text-align:center;
+  background:rgba(255,255,255,.06);transition:all var(--transition);cursor:pointer;
+}
+.dropzone:hover,.dropzone.dragover{border-color:var(--mint);background:rgba(154,230,212,.12);transform:scale(1.01)}
+.dropzone i{font-size:2.6rem;color:var(--mint);margin-bottom:16px}
+.dropzone h3{color:#fff;margin-bottom:8px}
+.dropzone p{font-size:.9rem}
+.dropzone .hint{font-size:.76rem;color:#8FA6BA;margin-top:14px}
+
+/* ============ FEATURES ============ */
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.feature-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:30px 26px;
+  box-shadow:var(--shadow-sm);transition:all var(--transition);position:relative;overflow:hidden;
+}
+.feature-card::after{content:"";position:absolute;inset-inline-start:0;top:0;width:4px;height:0;background:var(--teal);transition:height var(--transition)}
+.feature-card:hover::after{height:100%}
+.feature-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.feature-icon{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:1.3rem;color:#fff;background:linear-gradient(135deg,var(--teal),var(--teal-dark));margin-bottom:18px}
+.feature-card h3{font-size:1.08rem;margin-bottom:9px}
+.feature-card p{color:var(--muted);font-size:.92rem}
+
+/* ============ TESTIMONIALS ============ */
+.slider{position:relative;overflow:hidden;border-radius:var(--radius)}
+.slides{display:flex;transition:transform .55s cubic-bezier(.4,.14,.3,1)}
+.slide{min-width:100%;padding:6px}
+.testimonial{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:38px;box-shadow:var(--shadow-sm);max-width:760px;margin:0 auto;text-align:center;
+}
+.testimonial .quote-icon{font-size:1.8rem;color:var(--teal);margin-bottom:16px}
+.testimonial p{font-size:1.1rem;color:var(--text);margin-bottom:24px}
+.testimonial .stars{margin-bottom:16px;display:block}
+.reviewer{display:flex;align-items:center;justify-content:center;gap:13px}
+.avatar{width:48px;height:48px;border-radius:50%;object-fit:cover}
+.reviewer strong{display:block;font-size:.95rem}
+.reviewer small{color:var(--muted)}
+.slider-nav{display:flex;justify-content:center;gap:10px;margin-top:26px}
+.slider-dot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:all var(--transition)}
+.slider-dot.active{width:30px;border-radius:999px;background:var(--teal)}
+
+/* ============ OFFER ============ */
+.offer{
+  background:linear-gradient(120deg,var(--teal),var(--teal-dark));border-radius:26px;color:#fff;
+  padding:clamp(38px,5vw,60px);display:grid;grid-template-columns:1fr auto;gap:34px;align-items:center;
+  position:relative;overflow:hidden;box-shadow:var(--shadow-lg);
+}
+.offer::before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.14);top:-120px;inset-inline-end:-80px}
+.offer h2{color:#fff;font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:10px}
+.offer p{color:rgba(255,255,255,.86)}
+.countdown{display:flex;gap:12px;position:relative;z-index:1}
+.time-box{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);border-radius:14px;
+  min-width:72px;padding:13px 8px;text-align:center;backdrop-filter:blur(8px);
+}
+.time-box strong{font-family:"Poppins","Cairo",sans-serif;font-size:1.6rem;display:block}
+.time-box span{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;opacity:.85}
+
+/* ============ NEWSLETTER ============ */
+.newsletter{background:var(--surface);border:1px solid var(--border);border-radius:26px;padding:clamp(34px,5vw,56px);text-align:center;box-shadow:var(--shadow)}
+.newsletter h2{margin-bottom:12px}
+.newsletter p{color:var(--muted);max-width:520px;margin:0 auto 26px}
+.newsletter-form{display:flex;gap:12px;max-width:520px;margin:0 auto;flex-wrap:wrap}
+.newsletter-form input{
+  flex:1;min-width:230px;padding:14px 20px;border-radius:999px;border:1.5px solid var(--border);
+  background:var(--surface-2);outline:none;transition:all var(--transition);
+}
+.newsletter-form input:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(14,159,142,.14)}
+
+/* ============ FOOTER ============ */
+.footer{background:var(--navy);color:#B9C9D8;padding:70px 0 30px;margin-top:20px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:44px}
+.footer h4{color:#fff;font-size:1rem;margin-bottom:18px}
+.footer a:hover{color:var(--mint)}
+.footer-links{display:grid;gap:11px;font-size:.92rem}
+.footer .logo{color:#fff;margin-bottom:16px}
+.footer .logo span small{color:#8FA6BA}
+.social-row{display:flex;gap:10px;margin-top:20px}
+.social-row a{
+  width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(255,255,255,.08);transition:all var(--transition);
+}
+.social-row a:hover{background:var(--teal);color:#fff;transform:translateY(-3px)}
+.payment-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.pay-chip{
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:9px;
+  padding:7px 13px;font-size:.74rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:7px;
+}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.12);padding-top:24px;display:flex;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;font-size:.82rem;
+}
+.disclaimer{font-size:.78rem;color:#7E93A6;margin-top:18px;max-width:900px}
+
+/* ============ CART DRAWER ============ */
+.overlay{position:fixed;inset:0;background:rgba(6,20,38,.55);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:all var(--transition);z-index:200}
+.overlay.open{opacity:1;visibility:visible}
+.cart-drawer{
+  position:fixed;top:0;inset-inline-end:0;height:100dvh;width:min(430px,100%);background:var(--surface);
+  z-index:210;display:flex;flex-direction:column;box-shadow:var(--shadow-lg);
+  transform:translateX(100%);transition:transform .38s cubic-bezier(.4,.14,.3,1);
+}
+html[dir="rtl"] .cart-drawer{transform:translateX(-100%)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:22px 24px;border-bottom:1px solid var(--border)}
+.cart-head h3{font-size:1.15rem}
+.cart-items{flex:1;overflow-y:auto;padding:18px 24px;display:grid;gap:14px;align-content:start}
+.cart-item{display:flex;gap:14px;background:var(--surface-2);border-radius:14px;padding:12px}
+.cart-item img{width:70px;height:70px;border-radius:11px;object-fit:cover;flex-shrink:0}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-info h4{font-size:.92rem;font-weight:600;margin-bottom:3px}
+.cart-item-info .ci-price{font-size:.85rem;color:var(--teal-dark);font-weight:700}
+.qty-row{display:flex;align-items:center;gap:10px;margin-top:9px}
+.qty-btn{width:29px;height:29px;border-radius:9px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font-size:.78rem;transition:all var(--transition)}
+.qty-btn:hover{border-color:var(--teal);color:var(--teal-dark)}
+.remove-btn{margin-inline-start:auto;color:var(--danger);font-size:.85rem;opacity:.75;transition:opacity var(--transition)}
+.remove-btn:hover{opacity:1}
+.cart-empty{text-align:center;padding:60px 10px;color:var(--muted)}
+.cart-empty i{font-size:2.6rem;color:var(--teal);margin-bottom:16px;display:block}
+.cart-foot{border-top:1px solid var(--border);padding:20px 24px;background:var(--surface)}
+.summary-row{display:flex;justify-content:space-between;font-size:.92rem;color:var(--muted);margin-bottom:9px}
+.summary-row.total{font-size:1.15rem;font-weight:800;color:var(--text);font-family:"Poppins","Cairo",sans-serif;border-top:1px dashed var(--border);padding-top:12px;margin-top:12px}
+.cart-foot .btn{width:100%;margin-top:14px}
+
+/* ============ MODAL ============ */
+.modal{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:20px;opacity:0;visibility:hidden;transition:all var(--transition)}
+.modal.open{opacity:1;visibility:visible}
+.modal-card{
+  background:var(--surface);border-radius:24px;width:min(520px,100%);max-height:90dvh;overflow-y:auto;
+  padding:32px;box-shadow:var(--shadow-lg);transform:translateY(24px) scale(.97);transition:transform var(--transition);
+}
+.modal.open .modal-card{transform:translateY(0) scale(1)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.form-grid{display:grid;gap:15px}
+.form-field label{display:block;font-size:.84rem;font-weight:600;margin-bottom:7px}
+.form-field input,.form-field select,.form-field textarea{
+  width:100%;padding:13px 16px;border-radius:13px;border:1.5px solid var(--border);
+  background:var(--surface-2);outline:none;transition:all var(--transition);
+}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(14,159,142,.14)}
+.pay-options{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.pay-option{
+  border:1.5px solid var(--border);border-radius:13px;padding:14px;display:flex;align-items:center;gap:10px;
+  font-size:.86rem;font-weight:600;cursor:pointer;transition:all var(--transition);background:var(--surface);
+}
+.pay-option:hover{border-color:var(--teal)}
+.pay-option.selected{border-color:var(--teal);background:var(--teal-soft);color:var(--teal-dark)}
+.pay-option input{position:absolute;opacity:0}
+.success-view{text-align:center;padding:30px 10px;display:none}
+.success-view.show{display:block}
+.success-circle{
+  width:88px;height:88px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;
+  background:var(--teal-soft);color:var(--success);font-size:2.2rem;animation:pop .5s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes pop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.success-view h3{margin-bottom:10px}
+.success-view p{color:var(--muted);margin-bottom:24px}
+
+/* ============ TOAST & WHATSAPP ============ */
+.toast-wrap{position:fixed;bottom:24px;inset-inline-start:24px;z-index:400;display:grid;gap:10px}
+.toast{
+  display:flex;align-items:center;gap:12px;background:var(--navy);color:#fff;padding:14px 20px;
+  border-radius:14px;box-shadow:var(--shadow-lg);font-size:.9rem;font-weight:600;
+  transform:translateY(20px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast i{color:var(--mint)}
+.whatsapp-fab{
+  position:fixed;bottom:24px;inset-inline-end:24px;z-index:150;width:58px;height:58px;border-radius:50%;
+  background:#25D366;color:#fff;display:grid;place-items:center;font-size:1.5rem;
+  box-shadow:0 12px 30px rgba(37,211,102,.42);transition:all var(--transition);
+}
+.whatsapp-fab:hover{transform:scale(1.1) rotate(6deg)}
+
+/* ============ ANIMATIONS ============ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.4,.14,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.skeleton{background:linear-gradient(90deg,var(--surface-2) 25%,var(--border) 50%,var(--surface-2) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1024px){
+  .nav-links,.search{display:none}
+  .burger{display:grid}
+  .mobile-nav{
+    display:block;position:fixed;top:var(--header-h);inset-inline:0;background:var(--surface);
+    border-bottom:1px solid var(--border);padding:14px 5%;z-index:99;
+    transform:translateY(-110%);transition:transform .3s ease;box-shadow:var(--shadow);
+  }
+  .mobile-nav.open{transform:translateY(0)}
+  .mobile-nav a{display:block;padding:13px 6px;font-weight:600;border-bottom:1px solid var(--border)}
+  .mobile-nav a:last-child{border:0}
+  .hero-grid,.rx-grid{grid-template-columns:1fr;gap:44px}
+  .hero-visual{min-height:360px;order:-1}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .header-tools .lang-toggle span{display:none}
+  .hero-actions .btn{width:100%}
+  .offer{grid-template-columns:1fr;text-align:center}
+  .countdown{justify-content:center}
+  .footer-grid{grid-template-columns:1fr}
+  .pay-options{grid-template-columns:1fr}
+  .float-card{display:none}
+  .newsletter-form .btn{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ================= NAVBAR ================= -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo" aria-label="AlajLab Care home">
+      <span class="logo-mark"><i class="fa-solid fa-prescription-bottle-medical" aria-hidden="true"></i></span>
+      <span>AlajLab Care<small data-i18n="tagline">Health, Delivered</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#categories" class="active" data-i18n="nav_categories">Categories</a>
+      <a href="#products" data-i18n="nav_products">Products</a>
+      <a href="#prescription" data-i18n="nav_prescription">Prescription</a>
+      <a href="#why-us" data-i18n="nav_why">Why Us</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="header-tools">
+      <div class="search" role="search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <label class="sr-only" for="navSearch" data-i18n="search_label">Search medicines</label>
+        <input id="navSearch" type="search" placeholder="Search medicines…" data-i18n-placeholder="search_ph" aria-label="Search products">
+      </div>
+      <button class="icon-btn lang-toggle" id="langToggle" aria-label="Switch language">
+        <i class="fa-solid fa-globe" aria-hidden="true"></i><span id="langLabel">AR</span>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
+        <i class="fa-solid fa-moon" id="themeIcon" aria-hidden="true"></i>
+      </button>
+      <button class="icon-btn" id="cartBtn" aria-label="Open cart">
+        <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+  <a href="#categories" data-i18n="nav_categories">Categories</a>
+  <a href="#products" data-i18n="nav_products">Products</a>
+  <a href="#prescription" data-i18n="nav_prescription">Prescription</a>
+  <a href="#why-us" data-i18n="nav_why">Why Us</a>
+  <a href="#contact" data-i18n="nav_contact">Contact</a>
+</nav>
+
+<main id="main">
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <span class="eyebrow"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i> <span data-i18n="hero_eyebrow">Licensed Online Pharmacy</span></span>
+      <h1 data-i18n-html="hero_title">Your health, <em>delivered</em> with care.</h1>
+      <p data-i18n="hero_sub">Shop authentic medicines, vitamins and wellness essentials from certified pharmacies. Upload your prescription and get expert pharmacist support — all in one place.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> <span data-i18n="shop_now">Shop Now</span></a>
+        <a href="#prescription" class="btn btn-ghost"><i class="fa-solid fa-file-arrow-up" aria-hidden="true"></i> <span data-i18n="upload_rx">Upload Prescription</span></a>
+      </div>
+      <div class="trust-badges">
+        <div class="trust-badge"><i class="fa-solid fa-certificate" aria-hidden="true"></i><span data-i18n="trust_licensed">Licensed Pharmacy</span></div>
+        <div class="trust-badge"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i><span data-i18n="trust_delivery">Free Delivery</span></div>
+        <div class="trust-badge"><i class="fa-solid fa-headset" aria-hidden="true"></i><span data-i18n="trust_support">24/7 Support</span></div>
+      </div>
+      <div class="hero-stats">
+        <div><strong>50K+</strong><span data-i18n="stat_customers">Happy customers</span></div>
+        <div><strong>12K+</strong><span data-i18n="stat_products">Products</span></div>
+        <div><strong>4.9★</strong><span data-i18n="stat_rating">Average rating</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal" aria-hidden="true">
+      <div class="hero-product">
+        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" alt="Pharmacist arranging medicine products in a modern pharmacy">
+      </div>
+      <div class="float-card fc-1">
+        <span class="fc-icon"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i></span>
+        <div><strong data-i18n="fc_fast">Fast Delivery</strong><small data-i18n="fc_fast_sub">Same-day in major cities</small></div>
+      </div>
+      <div class="float-card fc-2">
+        <span class="fc-icon"><i class="fa-solid fa-user-doctor" aria-hidden="true"></i></span>
+        <div><strong data-i18n="fc_pharmacist">Pharmacist Verified</strong><small data-i18n="fc_pharmacist_sub">Every order reviewed</small></div>
+      </div>
+      <div class="float-card fc-3">
+        <span class="fc-icon"><i class="fa-solid fa-lock" aria-hidden="true"></i></span>
+        <div><strong data-i18n="fc_secure">Secure Payments</strong><small>Mada · Visa · Apple Pay</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATEGORIES ================= -->
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><i class="fa-solid fa-grid-2" aria-hidden="true"></i> <span data-i18n="cat_eyebrow">Shop by Category</span></span>
+      <h2 data-i18n="cat_title">Everything your family needs</h2>
+      <p data-i18n="cat_sub">From everyday wellness to chronic-care essentials, find trusted products across all major health categories.</p>
+    </div>
+    <div class="cat-grid">
+      <a href="#products" class="cat-card reveal" data-filter="Pain Relief"><span class="cat-icon"><i class="fa-solid fa-tablets" aria-hidden="true"></i></span><h3 data-i18n="cat_pain">Pain Relief</h3><span>240+ items</span></a>
+      <a href="#products" class="cat-card reveal" data-filter="Vitamins"><span class="cat-icon"><i class="fa-solid fa-capsules" aria-hidden="true"></i></span><h3 data-i18n="cat_vitamins">Vitamins</h3><span>380+ items</span></a>
+      <a href="#products" class="cat-card reveal" data-filter="Cold & Flu"><span class="cat-icon"><i class="fa-solid fa-temperature-half" aria-hidden="true"></i></span><h3 data-i18n="cat_cold">Cold & Flu</h3><span>150+ items</span></a>
+      <a href="#products" class="cat-card reveal" data-filter="Skin Care"><span class="cat-icon"><i class="fa-solid fa-hand-holding-droplet" aria-hidden="true"></i></span><h3 data-i18n="cat_skin">Skin Care</h3><span>290+ items</span></a>
+      <a href="#products" class="cat-card reveal" data-filter="Baby Care"><span class="cat-icon"><i class="fa-solid fa-baby" aria-hidden="true"></i></span><h3 data-i18n="cat_baby">Baby Care</h3><span>180+ items</span></a>
+      <a href="#products" class="cat-card reveal" data-filter="Chronic Care"><span class="cat-icon"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></span><h3 data-i18n="cat_chronic">Chronic Care</h3><span>320+ items</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="section" id="products" style="padding-top:0">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> <span data-i18n="prod_eyebrow">Featured Products</span></span>
+      <h2 data-i18n="prod_title">Trusted essentials, curated for you</h2>
+      <p data-i18n="prod_sub">Handpicked bestsellers from licensed brands — with transparent pricing in SAR.</p>
+    </div>
+    <div class="filter-bar reveal" id="filterBar" role="tablist" aria-label="Product filters">
+      <button class="filter-tab active" data-cat="all" role="tab" aria-selected="true" data-i18n="filter_all">All</button>
+      <button class="filter-tab" data-cat="Pain Relief" role="tab" aria-selected="false" data-i18n="cat_pain">Pain Relief</button>
+      <button class="filter-tab" data-cat="Vitamins" role="tab" aria-selected="false" data-i18n="cat_vitamins">Vitamins</button>
+      <button class="filter-tab" data-cat="Cold & Flu" role="tab" aria-selected="false" data-i18n="cat_cold">Cold & Flu</button>
+      <button class="filter-tab" data-cat="Skin Care" role="tab" aria-selected="false" data-i18n="cat_skin">Skin Care</button>
+      <button class="filter-tab" data-cat="Baby Care" role="tab" aria-selected="false" data-i18n="cat_baby">Baby Care</button>
+      <button class="filter-tab" data-cat="Chronic Care" role="tab" aria-selected="false" data-i18n="cat_chronic">Chronic Care</button>
+    </div>
+    <div class="product-grid" id="productGrid" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ================= PRESCRIPTION ================= -->
+<section class="section rx-section" id="prescription">
+  <div class="container rx-grid">
+    <div class="reveal">
+      <span class="eyebrow"><i class="fa-solid fa-file-prescription" aria-hidden="true"></i> <span data-i18n="rx_eyebrow">Prescription Service</span></span>
+      <h2 data-i18n="rx_title">Upload your prescription in seconds</h2>
+      <p data-i18n="rx_sub">Send a clear photo of your prescription and our licensed pharmacists will verify it, prepare your order and arrange fast delivery.</p>
+      <ul class="rx-list">
+        <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span data-i18n="rx_step1">Upload a clear photo or PDF of your prescription.</span></li>
+        <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span data-i18n="rx_step2">A licensed pharmacist reviews and confirms availability.</span></li>
+        <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span data-i18n="rx_step3">Receive your medicines with secure, contactless delivery.</span></li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Upload prescription file">
+        <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+        <h3 data-i18n="rx_drop_title">Drag & drop your prescription</h3>
+        <p data-i18n="rx_drop_sub">or click to browse — JPG, PNG or PDF up to 10MB</p>
+        <p class="hint" data-i18n="rx_privacy">Demo only — files are never uploaded or stored.</p>
+        <input type="file" id="rxInput" accept="image/*,.pdf" class="sr-only">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY US ================= -->
+<section class="section" id="why-us">
+  <div class="container">
+    <div class="section-head reveal" style="text-align:center;margin-inline:auto">
+      <span class="eyebrow"><i class="fa-solid fa-star" aria-hidden="true"></i> <span data-i18n="why_eyebrow">Why Choose Us</span></span>
+      <h2 data-i18n="why_title">Care you can count on</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card reveal"><span class="feature-icon"><i class="fa-solid fa-certificate" aria-hidden="true"></i></span><h3 data-i18n="feat_cert_title">Certified Products</h3><p data-i18n="feat_cert_sub">Every product is sourced from licensed suppliers and meets SFDA quality standards.</p></div>
+      <div class="feature-card reveal"><span class="feature-icon"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i></span><h3 data-i18n="feat_fast_title">Fast Delivery</h3><p data-i18n="feat_fast_sub">Same-day delivery in major cities and nationwide shipping within 24–48 hours.</p></div>
+      <div class="feature-card reveal"><span class="feature-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></span><h3 data-i18n="feat_secure_title">Secure Payments</h3><p data-i18n="feat_secure_sub">Pay safely with Mada, Visa/Mastercard, Apple Pay or cash on delivery.</p></div>
+      <div class="feature-card reveal"><span class="feature-icon"><i class="fa-solid fa-user-doctor" aria-hidden="true"></i></span><h3 data-i18n="feat_support_title">Pharmacist Support</h3><p data-i18n="feat_support_sub">Our licensed pharmacists are available 24/7 to answer your health questions.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="section-head reveal" style="text-align:center;margin-inline:auto">
+      <span class="eyebrow"><i class="fa-solid fa-quote-left" aria-hidden="true"></i> <span data-i18n="test_eyebrow">Testimonials</span></span>
+      <h2 data-i18n="test_title">Loved by thousands of families</h2>
+    </div>
+    <div class="slider reveal" id="slider">
+      <div class="slides" id="slides">
+        <div class="slide"><figure class="testimonial">
+          <i class="fa-solid fa-quote-left quote-icon" aria-hidden="true"></i>
+          <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <p data-i18n="test1">“AlajLab Care made managing my father’s chronic medications so simple. The pharmacist called to confirm everything before delivery — truly premium service.”</p>
+          <figcaption class="reviewer"><img class="avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Portrait of Sarah A."><div><strong>Sarah A.</strong><small data-i18n="test1_role">Riyadh</small></div></figcaption>
+        </figure></div>
+        <div class="slide"><figure class="testimonial">
+          <i class="fa-solid fa-quote-left quote-icon" aria-hidden="true"></i>
+          <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <p data-i18n="test2">“I uploaded my prescription at 9 PM and had my medicines delivered the next morning. The app experience feels far more polished than any local pharmacy.”</p>
+          <figcaption class="reviewer"><img class="avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Portrait of Mohammed K."><div><strong>Mohammed K.</strong><small data-i18n="test2_role">Jeddah</small></div></figcaption>
+        </figure></div>
+        <div class="slide"><figure class="testimonial">
+          <i class="fa-solid fa-quote-left quote-icon" aria-hidden="true"></i>
+          <span class="stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <p data-i18n="test3">“Genuine products, fair prices and excellent customer support. I’ve switched my whole family’s vitamins and baby care to AlajLab Care.”</p>
+          <figcaption class="reviewer"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80" alt="Portrait of Lina M."><div><strong>Lina M.</strong><small data-i18n="test3_role">Dammam</small></div></figcaption>
+        </figure></div>
+      </div>
+    </div>
+    <div class="slider-nav" id="sliderNav" role="tablist" aria-label="Testimonial navigation"></div>
+  </div>
+</section>
+
+<!-- ================= OFFER ================= -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="offer reveal">
+      <div>
+        <h2 data-i18n="offer_title">Wellness Week — up to 40% off</h2>
+        <p data-i18n="offer_sub">Save on vitamins, skincare and daily essentials. Offer ends soon.</p>
+      </div>
+      <div class="countdown" id="countdown" aria-live="off">
+        <div class="time-box"><strong id="cdD">02</strong><span data-i18n="cd_days">Days</span></div>
+        <div class="time-box"><strong id="cdH">08</strong><span data-i18n="cd_hours">Hours</span></div>
+        <div class="time-box"><strong id="cdM">45</strong><span data-i18n="cd_min">Mins</span></div>
+        <div class="time-box"><strong id="cdS">30</strong><span data-i18n="cd_sec">Secs</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEWSLETTER ================= -->
+<section class="section" id="contact" style="padding-top:0">
+  <div class="container">
+    <div class="newsletter reveal">
+      <span class="eyebrow"><i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i> <span data-i18n="news_eyebrow">Stay Healthy</span></span>
+      <h2 data-i18n="news_title">Get health tips & exclusive offers</h2>
+      <p data-i18n="news_sub">Join our newsletter for pharmacist-approved wellness advice, new arrivals and members-only discounts.</p>
+      <form class="newsletter-form" id="newsForm">
+        <label class="sr-only" for="newsEmail" data-i18n="news_email_label">Email address</label>
+        <input type="email" id="newsEmail" placeholder="Enter your email" data-i18n-placeholder="news_email_ph" required>
+        <button type="submit" class="btn btn-primary" data-i18n="news_cta">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#" class="logo"><span class="logo-mark"><i class="fa-solid fa-prescription-bottle-medical" aria-hidden="true"></i></span><span>AlajLab Care<small data-i18n="tagline">Health, Delivered</small></span></a>
+        <p style="font-size:.92rem;max-width:300px" data-i18n="footer_about">Premium online pharmacy delivering licensed medicines, wellness and personal-care essentials across Saudi Arabia.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 data-i18n="footer_shop">Shop</h4>
+        <ul class="footer-links">
+          <li><a href="#products" data-i18n="cat_pain">Pain Relief</a></li>
+          <li><a href="#products" data-i18n="cat_vitamins">Vitamins</a></li>
+          <li><a href="#products" data-i18n="cat_skin">Skin Care</a></li>
+          <li><a href="#products" data-i18n="cat_baby">Baby Care</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer_support">Support</h4>
+        <ul class="footer-links">
+          <li><a href="#" data-i18n="footer_faq">FAQs</a></li>
+          <li><a href="#prescription" data-i18n="nav_prescription">Prescription</a></li>
+          <li><a href="#" data-i18n="footer_shipping">Shipping & Returns</a></li>
+          <li><a href="#" data-i18n="footer_privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer_contact">Contact</h4>
+        <ul class="footer-links">
+          <li><i class="fa-solid fa-phone" aria-hidden="true"></i> 800 123 4567</li>
+          <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> care@alajlab.com</li>
+          <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span data-i18n="footer_address">Riyadh, Saudi Arabia</span></li>
+        </ul>
+        <div class="payment-row">
+          <span class="pay-chip"><i class="fa-brands fa-cc-visa" aria-hidden="true"></i> Visa</span>
+          <span class="pay-chip"><i class="fa-brands fa-cc-mastercard" aria-hidden="true"></i> Mastercard</span>
+          <span class="pay-chip"><i class="fa-brands fa-apple-pay" aria-hidden="true"></i> Apple Pay</span>
+          <span class="pay-chip">mada</span>
+        </div>
+      </div>
+    </div>
+    <p class="disclaimer" data-i18n="disclaimer">SFDA License No. PH-2026-XXXX (placeholder). This website is a design demo and does not sell or dispense medicines. Always consult a licensed healthcare professional before taking any medication.</p>
+    <div class="footer-bottom">
+      <span>© 2026 AlajLab Care. <span data-i18n="footer_rights">All rights reserved.</span></span>
+      <span data-i18n="footer_made">Designed with care for better health.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= CART DRAWER ================= -->
+<div class="overlay" id="overlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+  <div class="cart-head">
+    <h3><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> <span data-i18n="cart_title">Your Cart</span></h3>
+    <button class="icon-btn" id="closeCart" aria-label="Close cart"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot" id="cartFoot">
+    <div class="summary-row"><span data-i18n="subtotal">Subtotal</span><span id="sumSubtotal">SAR 0.00</span></div>
+    <div class="summary-row"><span data-i18n="vat">VAT (15%)</span><span id="sumVat">SAR 0.00</span></div>
+    <div class="summary-row total"><span data-i18n="total">Total</span><span id="sumTotal">SAR 0.00</span></div>
+    <button class="btn btn-primary" id="checkoutBtn"><i class="fa-solid fa-lock" aria-hidden="true"></i> <span data-i18n="checkout">Checkout</span></button>
+  </div>
+</aside>
+
+<!-- ================= CHECKOUT MODAL ================= -->
+<div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+  <div class="modal-card">
+    <div id="checkoutFormView">
+      <div class="modal-head">
+        <h3 id="checkoutTitle" data-i18n="checkout_title">Checkout</h3>
+        <button class="icon-btn" id="closeModal" aria-label="Close checkout"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      </div>
+      <form class="form-grid" id="checkoutForm">
+        <div class="form-field"><label for="coName" data-i18n="co_name">Full Name</label><input id="coName" type="text" required placeholder="Ahmed Al-Sayed" data-i18n-placeholder="co_name_ph"></div>
+        <div class="form-field"><label for="coPhone" data-i18n="co_phone">Phone Number</label><input id="coPhone" type="tel" required placeholder="+966 5X XXX XXXX" data-i18n-placeholder="co_phone_ph"></div>
+        <div class="form-field"><label for="coAddress" data-i18n="co_address">Delivery Address</label><textarea id="coAddress" rows="3" required placeholder="Street, district, city" data-i18n-placeholder="co_address_ph"></textarea></div>
+        <div class="form-field">
+          <label data-i18n="co_payment">Payment Method</label>
+          <div class="pay-options" id="payOptions">
+            <label class="pay-option selected"><input type="radio" name="payment" value="Mada" checked><i class="fa-solid fa-credit-card" aria-hidden="true"></i> mada</label>
+            <label class="pay-option"><input type="radio" name="payment" value="Visa/Mastercard"><i class="fa-brands fa-cc-visa" aria-hidden="true"></i> Visa / Mastercard</label>
+            <label class="pay-option"><input type="radio" name="payment" value="Apple Pay"><i class="fa-brands fa-apple-pay" aria-hidden="true"></i> Apple Pay</label>
+            <label class="pay-option"><input type="radio" name="payment" value="Cash on Delivery"><i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i> <span data-i18n="co_cod">Cash on Delivery</span></label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%"><i class="fa-solid fa-lock" aria-hidden="true"></i> <span data-i18n="co_place">Place Order</span></button>
+      </form>
+    </div>
+    <div class="success-view" id="successView">
+      <div class="success-circle"><i class="fa-solid fa-check" aria-hidden="true"></i></div>
+      <h3 data-i18n="success_title">Order Placed!</h3>
+      <p data-i18n="success_sub">Thank you for choosing AlajLab Care. A confirmation has been sent to your phone (demo).</p>
+      <button class="btn btn-primary" id="successClose" data-i18n="success_cta">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+<a href="https://wa.me/966500000000" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+
+<script>
+/* =====================================================
+   AlajLab Care — Demo Store Logic
+   Sections: i18n, theme, products, cart, checkout,
+   prescription upload, slider, countdown, reveal, toast
+===================================================== */
+
+/* ---------- Product Data ---------- */
+const PRODUCTS = [
+  {id:1, name:"Panadol Extra 500mg", cat:"Pain Relief", price:18.50, rating:4.8, reviews:1240, rx:false, img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80"},
+  {id:2, name:"Vitamin D3 5000 IU", cat:"Vitamins", price:45.00, rating:4.9, reviews:860, rx:false, img:"https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?auto=format&fit=crop&w=600&q=80"},
+  {id:3, name:"Cetirizine 10mg Allergy", cat:"Cold & Flu", price:22.00, rating:4.7, reviews:530, rx:false, img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=600&q=80"},
+  {id:4, name:"CeraVe Moisturizing Cream", cat:"Skin Care", price:89.00, rating:4.9, reviews:2100, rx:false, img:"https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80"},
+  {id:5, name:"Baby Paracetamol Syrup", cat:"Baby Care", price:26.00, rating:4.8, reviews:410, rx:false, img:"https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=600&q=80"},
+  {id:6, name:"Metformin 850mg", cat:"Chronic Care", price:32.00, rating:4.6, reviews:720, rx:true, img:"https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80"},
+  {id:7, name:"Omega-3 Fish Oil 1000mg", cat:"Vitamins", price:75.00, rating:4.8, reviews:980, rx:false, img:"https://images.unsplash.com/photo-1626716493137-b67fe9501e76?auto=format&fit=crop&w=600&q=80"},
+  {id:8, name:"Atorvastatin 20mg", cat:"Chronic Care", price:41.00, rating:4.7, reviews:390, rx:true, img:"https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=600&q=80"}
+];
+
+/* ---------- i18n ---------- */
+const I18N = {
+  en:{
+    tagline:"Health, Delivered", nav_categories:"Categories", nav_products:"Products", nav_prescription:"Prescription", nav_why:"Why Us", nav_contact:"Contact",
+    search_label:"Search medicines", search_ph:"Search medicines…",
+    hero_eyebrow:"Licensed Online Pharmacy", hero_title:'Your health, <em>delivered</em> with care.',
+    hero_sub:"Shop authentic medicines, vitamins and wellness essentials from certified pharmacies. Upload your prescription and get expert pharmacist support — all in one place.",
+    shop_now:"Shop Now", upload_rx:"Upload Prescription",
+    trust_licensed:"Licensed Pharmacy", trust_delivery:"Free Delivery", trust_support:"24/7 Support",
+    stat_customers:"Happy customers", stat_products:"Products", stat_rating:"Average rating",
+    fc_fast:"Fast Delivery", fc_fast_sub:"Same-day in major cities", fc_pharmacist:"Pharmacist Verified", fc_pharmacist_sub:"Every order reviewed", fc_secure:"Secure Payments",
+    cat_eyebrow:"Shop by Category", cat_title:"Everything your family needs", cat_sub:"From everyday wellness to chronic-care essentials, find trusted products across all major health categories.",
+    cat_pain:"Pain Relief", cat_vitamins:"Vitamins", cat_cold:"Cold & Flu", cat_skin:"Skin Care", cat_baby:"Baby Care", cat_chronic:"Chronic Care",
+    prod_eyebrow:"Featured Products", prod_title:"Trusted essentials, curated for you", prod_sub:"Handpicked bestsellers from licensed brands — with transparent pricing in SAR.",
+    filter_all:"All", rx_required:"Rx Required", add_to_cart:"Add to Cart",
+    rx_eyebrow:"Prescription Service", rx_title:"Upload your prescription in seconds",
+    rx_sub:"Send a clear photo of your prescription and our licensed pharmacists will verify it, prepare your order and arrange fast delivery.",
+    rx_step1:"Upload a clear photo or PDF of your prescription.", rx_step2:"A licensed pharmacist reviews and confirms availability.", rx_step3:"Receive your medicines with secure, contactless delivery.",
+    rx_drop_title:"Drag & drop your prescription", rx_drop_sub:"or click to browse — JPG, PNG or PDF up to 10MB", rx_privacy:"Demo only — files are never uploaded or stored.",
+    why_eyebrow:"Why Choose Us", why_title:"Care you can count on",
+    feat_cert_title:"Certified Products", feat_cert_sub:"Every product is sourced from licensed suppliers and meets SFDA quality standards.",
+    feat_fast_title:"Fast Delivery", feat_fast_sub:"Same-day delivery in major cities and nationwide shipping within 24–48 hours.",
+    feat_secure_title:"Secure Payments", feat_secure_sub:"Pay safely with Mada, Visa/Mastercard, Apple Pay or cash on delivery.",
+    feat_support_title:"Pharmacist Support", feat_support_sub:"Our licensed pharmacists are available 24/7 to answer your health questions.",
+    test_eyebrow:"Testimonials", test_title:"Loved by thousands of families",
+    test1:"“AlajLab Care made managing my father’s chronic medications so simple. The pharmacist called to confirm everything before delivery — truly premium service.”", test1_role:"Riyadh",
+    test2:"“I uploaded my prescription at 9 PM and had my medicines delivered the next morning. The app experience feels far more polished than any local pharmacy.”", test2_role:"Jeddah",
+    test3:"“Genuine products, fair prices and excellent customer support. I’ve switched my whole family’s vitamins and baby care to AlajLab Care.”", test3_role:"Dammam",
+    offer_title:"Wellness Week — up to 40% off", offer_sub:"Save on vitamins, skincare and daily essentials. Offer ends soon.",
+    cd_days:"Days", cd_hours:"Hours", cd_min:"Mins", cd_sec:"Secs",
+    news_eyebrow:"Stay Healthy", news_title:"Get health tips & exclusive offers", news_sub:"Join our newsletter for pharmacist-approved wellness advice, new arrivals and members-only discounts.",
+    news_email_label:"Email address", news_email_ph:"Enter your email", news_cta:"Subscribe",
+    footer_about:"Premium online pharmacy delivering licensed medicines, wellness and personal-care essentials across Saudi Arabia.",
+    footer_shop:"Shop", footer_support:"Support", footer_contact:"Contact", footer_faq:"FAQs", footer_shipping:"Shipping & Returns", footer_privacy:"Privacy Policy", footer_address:"Riyadh, Saudi Arabia",
+    footer_rights:"All rights reserved.", footer_made:"Designed with care for better health.",
+    disclaimer:"SFDA License No. PH-2026-XXXX (placeholder). This website is a design demo and does not sell or dispense medicines. Always consult a licensed healthcare professional before taking any medication.",
+    cart_title:"Your Cart", cart_empty:"Your cart is empty", cart_empty_sub:"Add products to get started.", subtotal:"Subtotal", vat:"VAT (15%)", total:"Total", checkout:"Checkout",
+    checkout_title:"Checkout", co_name:"Full Name", co_name_ph:"Ahmed Al-Sayed", co_phone:"Phone Number", co_phone_ph:"+966 5X XXX XXXX",
+    co_address:"Delivery Address", co_address_ph:"Street, district, city", co_payment:"Payment Method", co_cod:"Cash on Delivery", co_place:"Place Order",
+    success_title:"Order Placed!", success_sub:"Thank you for choosing AlajLab Care. A confirmation has been sent to your phone (demo).", success_cta:"Continue Shopping",
+    toast_added:"Added to cart", toast_removed:"Removed from cart", toast_subscribed:"Subscribed successfully!", toast_rx:"Prescription received (demo)", toast_order:"Order placed successfully!"
+  },
+  ar:{
+    tagline:"صحتك تصلك", nav_categories:"الفئات", nav_products:"المنتجات", nav_prescription:"الوصفة الطبية", nav_why:"لماذا نحن", nav_contact:"تواصل معنا",
+    search_label:"ابحث عن الأدوية", search_ph:"ابحث عن الأدوية…",
+    hero_eyebrow:"صيدلية إلكترونية مرخصة", hero_title:'صحتك <em>تصلك</em> بعناية.',
+    hero_sub:"تسوّق الأدوية الأصلية والفيتامينات ومنتجات العناية الصحية من صيدليات معتمدة. ارفع وصفتك الطبية واحصل على دعم الصيادلة — كل ذلك في مكان واحد.",
+    shop_now:"تسوّق الآن", upload_rx:"ارفع الوصفة",
+    trust_licensed:"صيدلية مرخصة", trust_delivery:"توصيل مجاني", trust_support:"دعم 24/7",
+    stat_customers:"عميل سعيد", stat_products:"منتج", stat_rating:"متوسط التقييم",
+    fc_fast:"توصيل سريع", fc_fast_sub:"في نفس اليوم بالمدن الرئيسية", fc_pharmacist:"مراجعة صيدلاني", fc_pharmacist_sub:"كل طلب يُراجع", fc_secure:"دفع آمن",
+    cat_eyebrow:"تسوّق حسب الفئة", cat_title:"كل ما تحتاجه عائلتك", cat_sub:"من العناية اليومية إلى essentials الرعاية المزمنة، اكتشف منتجات موثوقة في جميع الفئات الصحية.",
+    cat_pain:"مسكنات الألم", cat_vitamins:"فيتامينات", cat_cold:"البرد والإنفلونزا", cat_skin:"العناية بالبشرة", cat_baby:"عناية الأطفال", cat_chronic:"الرعاية المزمنة",
+    prod_eyebrow:"منتجات مميزة", prod_title:"أساسيات موثوقة مختارة لك", prod_sub:"أفضل المنتجات من علامات مرخصة — بأسعار شفافة بالريال السعودي.",
+    filter_all:"الكل", rx_required:"يتطلب وصفة", add_to_cart:"أضف للسلة",
+    rx_eyebrow:"خدمة الوصفات", rx_title:"ارفع وصفتك الطبية في ثوانٍ",
+    rx_sub:"أرسل صورة واضحة لوصفتك وسيقوم صيادلتنا المرخصون بمراجعتها وتجهيز طلبك وترتيب التوصيل السريع.",
+    rx_step1:"ارفع صورة واضحة أو ملف PDF للوصفة.", rx_step2:"يراجع صيدلي مرخص ويؤكد التوفر.", rx_step3:"استلم أدويتك بتوصيل آمن وبدون تلامس.",
+    rx_drop_title:"اسحب وأفلت وصفتك هنا", rx_drop_sub:"أو اضغط للاختيار — JPG أو PNG أو PDF حتى 10MB", rx_privacy:"للعرض فقط — لا يتم رفع أو حفظ الملفات.",
+    why_eyebrow:"لماذا تختارنا", why_title:"رعاية تستحق الثقة",
+    feat_cert_title:"منتجات معتمدة", feat_cert_sub:"كل منتج مصدر من موردين مرخصين ويطابق معايير جودة الهيئة العامة للغذاء والدواء.",
+    feat_fast_title:"توصيل سريع", feat_fast_sub:"توصيل في نفس اليوم بالمدن الرئيسية وشحن وطني خلال 24–48 ساعة.",
+    feat_secure_title:"دفع آمن", feat_secure_sub:"ادفع بأمان عبر مدى أو فيزا/ماستركارد أو Apple Pay أو الدفع عند الاستلام.",
+    feat_support_title:"دعم الصيادلة", feat_support_sub:"صيادلتنا المرخصون متاحون على مدار الساعة للإجابة على استفساراتك الصحية.",
+    test_eyebrow:"آراء العملاء", test_title:"محبوب من آلاف العائلات",
+    test1:"“جعلت AlajLab Care إدارة أدوية والدي المزمنة سهلة جداً. اتصل الصيدلي للتأكد من كل شيء قبل التوصيل — خدمة راقية فعلاً.”", test1_role:"الرياض",
+    test2:"“رفعت وصفتي الساعة 9 مساءً ووصلت أدويتي صباح اليوم التالي. التجربة أكثر احترافية من أي صيدلية محلية.”", test2_role:"جدة",
+    test3:"“منتجات أصلية وأسعار عادلة ودعم عملاء ممتاز. انتقلت مع عائلتي بالكامل إلى AlajLab Care للفيتامينات وعناية الأطفال.”", test3_role:"الدمام",
+    offer_title:"أسبوع العافية — خصم حتى 40%", offer_sub:"وفّر على الفيتامينات والعناية بالبشرة والأساسيات اليومية. العرض ينتهي قريباً.",
+    cd_days:"يوم", cd_hours:"ساعة", cd_min:"دقيقة", cd_sec:"ثانية",
+    news_eyebrow:"ابقَ بصحة جيدة", news_title:"احصل على نصائح صحية وعروض حصرية", news_sub:"انضم لنشرتنا البريدية للحصول على نصائح صحية معتمدة ومنتجات جديدة وخصومات للأعضاء.",
+    news_email_label:"البريد الإلكتروني", news_email_ph:"أدخل بريدك الإلكتروني", news_cta:"اشترك",
+    footer_about:"صيدلية إلكترونية راقية توصل الأدوية المرخصة ومنتجات العناية الصحية والشخصية في جميع أنحاء المملكة العربية السعودية.",
+    footer_shop:"تسوّق", footer_support:"الدعم", footer_contact:"تواصل", footer_faq:"الأسئلة الشائعة", footer_shipping:"الشحن والإرجاع", footer_privacy:"سياسة الخصوصية", footer_address:"الرياض، المملكة العربية السعودية",
+    footer_rights:"جميع الحقوق محفوظة.", footer_made:"صُمم بعناية من أجل صحة أفضل.",
+    disclaimer:"رقم ترخيص الهيئة العامة للغذاء والدواء PH-2026-XXXX (للعرض). هذا الموقع عرض تصميمي ولا يبيع أو يصرف الأدوية. استشر دائماً مختصاً صحياً مرخصاً قبل تناول أي دواء.",
+    cart_title:"سلتك", cart_empty:"سلتك فارغة", cart_empty_sub:"أضف منتجات للبدء.", subtotal:"المجموع الفرعي", vat:"ضريبة القيمة المضافة (15%)", total:"الإجمالي", checkout:"إتمام الشراء",
+    checkout_title:"إتمام الشراء", co_name:"الاسم الكامل", co_name_ph:"أحمد السيد", co_phone:"رقم الجوال", co_phone_ph:"+966 5X XXX XXXX",
+    co_address:"عنوان التوصيل", co_address_ph:"الشارع، الحي، المدينة", co_payment:"طريقة الدفع", co_cod:"الدفع عند الاستلام", co_place:"تأكيد الطلب",
+    success_title:"تم تأكيد الطلب!", success_sub:"شكراً لاختيارك AlajLab Care. تم إرسال تأكيد إلى جوالك (عرض توضيحي).", success_cta:"متابعة التسوق",
+    toast_added:"تمت الإضافة إلى السلة", toast_removed:"تم الحذف من السلة", toast_subscribed:"تم الاشتراك بنجاح!", toast_rx:"تم استلام الوصفة (عرض توضيحي)", toast_order:"تم تأكيد الطلب بنجاح!"
+  }
+};
+let lang = localStorage.getItem("alajlab_lang") || "en";
+
+function applyLang(){
+  const dict = I18N[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k = el.dataset.i18n;
+    if(dict[k]) el.textContent = dict[k];
+  });
+  document.querySelectorAll("[data-i18n-html]").forEach(el=>{
+    const k = el.dataset.i18nHtml;
+    if(dict[k]) el.innerHTML = dict[k];
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+    const k = el.dataset.i18nPlaceholder;
+    if(dict[k]) el.placeholder = dict[k];
+  });
+  document.getElementById("langLabel").textContent = lang === "en" ? "AR" : "EN";
+  localStorage.setItem("alajlab_lang", lang);
+  renderProducts();
+  renderCart();
+}
+
+/* ---------- Theme ---------- */
+const themeBtn = document.getElementById("themeToggle");
+const themeIcon = document.getElementById("themeIcon");
+function applyTheme(t){
+  document.documentElement.dataset.theme = t;
+  themeIcon.className = t === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+  localStorage.setItem("alajlab_theme", t);
+}
+applyTheme(localStorage.getItem("alajlab_theme") || "light");
+themeBtn.addEventListener("click", ()=> applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
+
+/* ---------- Language Toggle ---------- */
+document.getElementById("langToggle").addEventListener("click", ()=>{
+  lang = lang === "en" ? "ar" : "en";
+  applyLang();
+});
+
+/* ---------- Mobile Nav ---------- */
+const burger = document.getElementById("burger");
+const mobileNav = document.getElementById("mobileNav");
+burger.addEventListener("click", ()=>{
+  const open = mobileNav.classList.toggle("open");
+  burger.setAttribute("aria-expanded", open);
+});
+mobileNav.querySelectorAll("a").forEach(a=>a.addEventListener("click", ()=>{
+  mobileNav.classList.remove("open"); burger.setAttribute("aria-expanded","false");
+}));
+
+/* ---------- Product Rendering / Filter / Search ---------- */
+const productGrid = document.getElementById("productGrid");
+const filterBar = document.getElementById("filterBar");
+const navSearch = document.getElementById("navSearch");
+let activeCat = "all";
+let searchTerm = "";
+
+function starString(r){
+  const full = Math.round(r);
+  return "★".repeat(full) + "☆".repeat(5-full);
+}
+function renderProducts(){
+  const dict = I18N[lang];
+  const list = PRODUCTS.filter(p =>
+    (activeCat === "all" || p.cat === activeCat) &&
+    (p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.cat.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+  productGrid.innerHTML = list.length ? list.map(p=>`
+    <article class="product-card reveal visible">
+      <div class="product-media">
+        <img src="${p.img}" alt="${p.name} product photo" loading="lazy">
+        ${p.rx ? `<span class="badge badge-rx"><i class="fa-solid fa-file-prescription" aria-hidden="true"></i> ${dict.rx_required}</span>` : `<span class="badge badge-sale">${dict.filter_all === "الكل" ? "Bestseller" : "الأكثر مبيعاً"}</span>`}
+      </div>
+      <div class="product-body">
+        <span class="product-cat">${p.cat}</span>
+        <h3>${p.name}</h3>
+        <div class="rating"><span class="stars" aria-hidden="true">${starString(p.rating)}</span> ${p.rating} (${p.reviews})</div>
+        <div class="product-foot">
+          <span class="price">${p.price.toFixed(2)} <small>SAR</small></span>
+          <button class="add-btn" data-add="${p.id}" aria-label="${dict.add_to_cart}: ${p.name}"><i class="fa-solid fa-cart-plus" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </article>`).join("")
+  : `<div class="empty-state"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><p>${lang==="ar"?"لا توجد منتجات مطابقة.":"No matching products found."}</p></div>`;
+  productGrid.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click", ()=> addToCart(+b.dataset.add)));
+}
+filterBar.addEventListener("click", e=>{
+  const tab = e.target.closest(".filter-tab");
+  if(!tab) return;
+  filterBar.querySelectorAll(".filter-tab").forEach(t=>{t.classList.remove("active");t.setAttribute("aria-selected","false");});
+  tab.classList.add("active"); tab.setAttribute("aria-selected","true");
+  activeCat = tab.dataset.cat;
+  renderProducts();
+});
+navSearch.addEventListener("input", e=>{ searchTerm = e.target.value; renderProducts(); });
+document.querySelectorAll(".cat-card").forEach(c=>c.addEventListener("click", ()=>{
+  const cat = c.dataset.filter;
+  const tab = filterBar.querySelector(`[data-cat="${cat}"]`);
+  if(tab) tab.click();
+}));
+
+/* ---------- Cart ---------- */
+let cart = JSON.parse(localStorage.getItem("alajlab_cart") || "[]");
+const cartDrawer = document.getElementById("cartDrawer");
+const overlay = document.getElementById("overlay");
+const cartCount = document.getElementById("cartCount");
+const cartItemsEl = document.getElementById("cartItems");
+const cartFoot = document.getElementById("cartFoot");
+
+function saveCart(){ localStorage.setItem("alajlab_cart", JSON.stringify(cart)); }
+function cartQty(){ return cart.reduce((s,i)=>s+i.qty,0); }
+function cartSubtotal(){ return cart.reduce((s,i)=>s+i.price*i.qty,0); }
+
+function addToCart(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  const existing = cart.find(i=>i.id===id);
+  if(existing) existing.qty++;
+  else cart.push({id:p.id, name:p.name, price:p.price, img:p.img, qty:1});
+  saveCart(); renderCart();
+  toast(I18N[lang].toast_added, "fa-circle-check");
+}
+function changeQty(id, delta){
+  const item = cart.find(i=>i.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0) cart = cart.filter(i=>i.id!==id);
+  saveCart(); renderCart();
+}
+function removeItem(id){
+  cart = cart.filter(i=>i.id!==id);
+  saveCart(); renderCart();
+  toast(I18N[lang].toast_removed, "fa-trash-can");
+}
+function renderCart(){
+  const dict = I18N[lang];
+  const count = cartQty();
+  cartCount.textContent = count;
+  cartCount.classList.toggle("show", count > 0);
+  if(!cart.length){
+    cartItemsEl.innerHTML = `<div class="cart-empty"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i><h4>${dict.cart_empty}</h4><p>${dict.cart_empty_sub}</p></div>`;
+    cartFoot.style.display = "none";
+    return;
+  }
+  cartFoot.style.display = "block";
+  cartItemsEl.innerHTML = cart.map(i=>`
+    <div class="cart-item">
+      <img src="${i.img}" alt="${i.name}">
+      <div class="cart-item-info">
+        <h4>${i.name}</h4>
+        <span class="ci-price">${i.price.toFixed(2)} SAR</span>
+        <div class="qty-row">
+          <button class="qty-btn" data-dec="${i.id}" aria-label="Decrease quantity">−</button>
+          <span aria-live="polite">${i.qty}</span>
+          <button class="qty-btn" data-inc="${i.id}" aria-label="Increase quantity">+</button>
+          <button class="remove-btn" data-rm="${i.id}" aria-label="Remove ${i.name}"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>`).join("");
+  const sub = cartSubtotal();
+  const vat = sub * 0.15;
+  document.getElementById("sumSubtotal").textContent = `SAR ${sub.toFixed(2)}`;
+  document.getElementById("sumVat").textContent = `SAR ${vat.toFixed(2)}`;
+  document.getElementById("sumTotal").textContent = `SAR ${(sub+vat).toFixed(2)}`;
+  cartItemsEl.querySelectorAll("[data-inc]").forEach(b=>b.addEventListener("click",()=>changeQty(+b.dataset.inc,1)));
+  cartItemsEl.querySelectorAll("[data-dec]").forEach(b=>b.addEventListener("click",()=>changeQty(+b.dataset.dec,-1)));
+  cartItemsEl.querySelectorAll("[data-rm]").forEach(b=>b.addEventListener("click",()=>removeItem(+b.dataset.rm)));
+}
+function openCart(){ cartDrawer.classList.add("open"); overlay.classList.add("open"); cartDrawer.setAttribute("aria-hidden","false"); }
+function closeCart(){ cartDrawer.classList.remove("open"); overlay.classList.remove("open"); cartDrawer.setAttribute("aria-hidden","true"); }
+document.getElementById("cartBtn").addEventListener("click", openCart);
+document.getElementById("closeCart").addEventListener("click", closeCart);
+overlay.addEventListener("click", closeCart);
+document.addEventListener("keydown", e=>{ if(e.key === "Escape"){ closeCart(); closeModal(); }});
+
+/* ---------- Checkout Modal ---------- */
+const checkoutModal = document.getElementById("checkoutModal");
+const checkoutFormView = document.getElementById("checkoutFormView");
+const successView = document.getElementById("successView");
+function openModal(){
+  if(!cart.length){ toast(lang==="ar"?"السلة فارغة":"Your cart is empty","fa-circle-exclamation"); return; }
+  checkoutModal.classList.add("open");
+  checkoutFormView.style.display = "block";
+  successView.classList.remove("show");
+}
+function closeModal(){ checkoutModal.classList.remove("open"); }
+document.getElementById("checkoutBtn").addEventListener("click", openModal);
+document.getElementById("closeModal").addEventListener("click", closeModal);
+checkoutModal.addEventListener("click", e=>{ if(e.target === checkoutModal) closeModal(); });
+document.getElementById("payOptions").addEventListener("change", e=>{
+  document.querySelectorAll(".pay-option").forEach(o=>o.classList.remove("selected"));
+  e.target.closest(".pay-option").classList.add("selected");
+});
+document.getElementById("checkoutForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  checkoutFormView.style.display = "none";
+  successView.classList.add("show");
+  cart = []; saveCart(); renderCart();
+  toast(I18N[lang].toast_order, "fa-circle-check");
+});
+document.getElementById("successClose").addEventListener("click", ()=>{ closeModal(); closeCart(); });
+
+/* ---------- Prescription Upload (demo) ---------- */
+const dropzone = document.getElementById("dropzone");
+const rxInput = document.getElementById("rxInput");
+dropzone.addEventListener("click", ()=> rxInput.click());
+dropzone.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); rxInput.click(); }});
+["dragenter","dragover"].forEach(ev=>dropzone.addEventListener(ev, e=>{e.preventDefault();dropzone.classList.add("dragover");}));
+["dragleave","drop"].forEach(ev=>dropzone.addEventListener(ev, e=>{e.preventDefault();dropzone.classList.remove("dragover");}));
+dropzone.addEventListener("drop", e=>{ if(e.dataTransfer.files.length) toast(I18N[lang].toast_rx,"fa-file-arrow-up"); });
+rxInput.addEventListener("change", ()=>{ if(rxInput.files.length) toast(I18N[lang].toast_rx,"fa-file-arrow-up"); });
+
+/* ---------- Testimonial Slider ---------- */
+const slides = document.getElementById("slides");
+const sliderNav = document.getElementById("sliderNav");
+let slideIndex = 0;
+const slideCount = slides.children.length;
+for(let i=0;i<slideCount;i++){
+  const dot = document.createElement("button");
+  dot.className = "slider-dot" + (i===0?" active":"");
+  dot.setAttribute("role","tab");
+  dot.setAttribute("aria-label", `Testimonial ${i+1}`);
+  dot.addEventListener("click", ()=>goSlide(i));
+  sliderNav.appendChild(dot);
+}
+function goSlide(i){
+  slideIndex = (i + slideCount) % slideCount;
+  slides.style.transform = `translateX(-${slideIndex*100}%)`;
+  sliderNav.querySelectorAll(".slider-dot").forEach((d,j)=>d.classList.toggle("active", j===slideIndex));
+}
+let autoSlide = setInterval(()=>goSlide(slideIndex+1), 5000);
+sliderNav.addEventListener("click", ()=>{ clearInterval(autoSlide); autoSlide = setInterval(()=>goSlide(slideIndex+1), 5000); });
+
+/* ---------- Countdown ---------- */
+const offerEnd = Date.now() + (2*24*3600 + 8*3600 + 45*60 + 30) * 1000;
+function tickCountdown(){
+  let diff = Math.max(0, offerEnd - Date.now()) / 1000;
+  const d = Math.floor(diff/86400); diff %= 86400;
+  const h = Math.floor(diff/3600); diff %= 3600;
+  const m = Math.floor(diff/60);
+  const s = Math.floor(diff%60);
+  const pad = n=>String(n).padStart(2,"0");
+  document.getElementById("cdD").textContent = pad(d);
+  document.getElementById("cdH").textContent = pad(h);
+  document.getElementById("cdM").textContent = pad(m);
+  document.getElementById("cdS").textContent = pad(s);
+}
+tickCountdown();
+setInterval(tickCountdown, 1000);
+
+/* ---------- Newsletter ---------- */
+document.getElementById("newsForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  toast(I18N[lang].toast_subscribed, "fa-envelope-circle-check");
+  e.target.reset();
+});
+
+/* ---------- Toast ---------- */
+function toast(msg, icon){
+  const wrap = document.getElementById("toastWrap");
+  const t = document.createElement("div");
+  t.className = "toast";
+  t.innerHTML = `<i class="fa-solid ${icon}" aria-hidden="true"></i><span>${msg}</span>`;
+  wrap.appendChild(t);
+  requestAnimationFrame(()=>t.classList.add("show"));
+  setTimeout(()=>{ t.classList.remove("show"); setTimeout(()=>t.remove(), 300); }, 2800);
+}
+
+/* ---------- Scroll Reveal ---------- */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("visible"); observer.unobserve(en.target); }});
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+/* ---------- Init ---------- */
+applyLang();
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
